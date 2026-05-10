@@ -108,12 +108,12 @@ Token sets map to Figma Variable Collections through `$themes`. Each theme group
   "$themes": [
     {
       "id": "unique-id",
-      "name": "Light",
-      "group": "Component",
+      "name": "light",
+      "group": "component",
       "selectedTokenSets": {
-        "Brand": "source",
-        "Alias": "source",
-        "Component/Light": "enabled"
+        "brand": "source",
+        "alias": "source",
+        "component/light": "enabled"
       }
     }
   ]
@@ -127,6 +127,17 @@ Token sets map to Figma Variable Collections through `$themes`. Each theme group
 ### Non-responsive values
 
 Tokens that don't change between modes (spacing base scale, radius, border widths, opacity, elevation) are duplicated into BOTH mode sets (e.g., `Dimension/Mobile` and `Dimension/Tablet`). This ensures one Figma collection with a mode switcher instead of separate orphan collections.
+
+## Importing to Figma Variables
+
+To import this into Figma variables:
+
+1. Import this into Figma token studio.
+2. Export these token from token studio to Figma variables.
+3. Export `dimension/mobile` as zip and keep a back up and then delete it.
+4. Select `dimension/tablet`. Add a new dimension mode and instead of adding the tokens to the new mode, import the `dimension/mobile` json which we took backup.
+
+> Do the same for `components/mobile` and `components/tablet` too.
 
 ## Color Architecture
 

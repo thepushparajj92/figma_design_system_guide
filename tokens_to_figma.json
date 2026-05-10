@@ -1,5 +1,5 @@
 {
-  "Brand": {
+  "brand": {
     "pink": {
       "50": {
         "$extensions": {
@@ -1019,7 +1019,7 @@
       }
     }
   },
-  "Alias": {
+  "alias": {
     "primary": {
       "50": {
         "$extensions": {
@@ -2337,7 +2337,7 @@
       "type": "color"
     }
   },
-  "Component/Light": {
+  "component/light": {
     "background": {
       "page": {
         "$extensions": {
@@ -2897,7 +2897,7 @@
       }
     }
   },
-  "Component/Dark": {
+  "component/dark": {
     "background": {
       "page": {
         "$extensions": {
@@ -3457,7 +3457,7 @@
       }
     }
   },
-  "Typography/Mobile": {
+  "typography/mobile": {
     "displayHero": {
       "fontSize": {
         "$extensions": {
@@ -4257,7 +4257,7 @@
       }
     }
   },
-  "Typography/Tablet": {
+  "typography/tablet": {
     "displayHero": {
       "fontSize": {
         "$extensions": {
@@ -5060,70 +5060,70 @@
   "$themes": [
     {
       "id": "c9029e16",
-      "name": "Light",
-      "group": "Component",
+      "name": "light",
+      "group": "component",
       "selectedTokenSets": {
-        "Brand": "source",
-        "Alias": "source",
-        "Component/Light": "enabled"
+        "brand": "source",
+        "alias": "source",
+        "component/light": "enabled"
       }
     },
     {
       "id": "286b527a",
-      "name": "Dark",
-      "group": "Component",
+      "name": "dark",
+      "group": "component",
       "selectedTokenSets": {
-        "Brand": "source",
-        "Alias": "source",
-        "Component/Dark": "enabled"
+        "brand": "source",
+        "alias": "source",
+        "component/dark": "enabled"
       }
     },
     {
       "id": "84232564",
-      "name": "Mobile",
+      "name": "mobile",
       "group": "Dimension",
       "selectedTokenSets": {
-        "Dimension/Mobile": "enabled"
+        "dimension/mobile": "enabled"
       }
     },
     {
       "id": "dde7e375",
-      "name": "Tablet",
+      "name": "tablet",
       "group": "Dimension",
       "selectedTokenSets": {
-        "Dimension/Tablet": "enabled"
+        "dimension/tablet": "enabled"
       }
     },
     {
       "id": "503e6c1d",
-      "name": "Mobile",
+      "name": "mobile",
       "group": "Typography",
       "selectedTokenSets": {
-        "Typography/Mobile": "enabled"
+        "typography/mobile": "enabled"
       }
     },
     {
       "id": "3e334493",
-      "name": "Tablet",
+      "name": "tablet",
       "group": "Typography",
       "selectedTokenSets": {
-        "Typography/Tablet": "enabled"
+        "typography/tablet": "enabled"
       }
     }
   ],
   "$metadata": {
     "tokenSetOrder": [
-      "Brand",
-      "Alias",
-      "Component/Light",
-      "Component/Dark",
-      "Dimension/Mobile",
-      "Dimension/Tablet",
-      "Typography/Mobile",
-      "Typography/Tablet"
+      "brand",
+      "alias",
+      "component/light",
+      "component/dark",
+      "dimension/mobile",
+      "dimension/tablet",
+      "typography/mobile",
+      "typography/tablet"
     ]
   },
-  "Dimension/Mobile": {
+  "dimension/mobile": {
     "layout": {
       "contentPaddingH": {
         "$extensions": {
@@ -6049,7 +6049,7 @@
       }
     }
   },
-  "Dimension/Tablet": {
+  "dimension/tablet": {
     "layout": {
       "contentPaddingH": {
         "$extensions": {
