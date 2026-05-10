@@ -235,26 +235,26 @@ THEME = {
 }
 
 TYPOGRAPHY = [
-    # (name, sample, font_size, line_height, letter_spacing, weight_name)
-    ("displayHero",   "The quick brown fox jumps",    34, 40, -1.0,   "Bold"),
-    ("displayLarge",  "The quick brown fox jumps",    28, 34, -0.5,   "Bold"),
-    ("displayMedium", "The quick brown fox jumps",    24, 30, -0.25,  "Bold"),
-    ("displaySmall",  "The quick brown fox jumps",    20, 26, -0.25,  "SemiBold"),
-    ("headlineLarge", "The quick brown fox jumps",    18, 24, -0.15,  "SemiBold"),
-    ("headlineMedium","The quick brown fox",          16, 22,  0.0,   "SemiBold"),
-    ("headlineSmall", "The quick brown fox",          14, 20,  0.0,   "SemiBold"),
-    ("titleLarge",    "The quick brown fox",          16, 22,  0.0,   "Medium"),
-    ("titleMedium",   "The quick brown fox",          14, 20,  0.1,   "Medium"),
-    ("titleSmall",    "The quick brown fox",          13, 18,  0.1,   "Medium"),
-    ("bodyLarge",     "The quick brown fox jumps over the lazy dog",  16, 24, 0.0, "Regular"),
-    ("bodyMedium",    "The quick brown fox jumps over the lazy dog",  14, 22, 0.0, "Regular"),
-    ("bodySmall",     "The quick brown fox jumps over the lazy dog",  13, 20, 0.0, "Regular"),
-    ("labelLarge",    "Button Label",                 14, 20,  0.1,   "Medium"),
-    ("labelMedium",   "Field Label",                  12, 18,  0.25,  "Medium"),
-    ("labelSmall",    "SMALL LABEL",                  11, 16,  0.5,   "Medium"),
-    ("caption",       "Helper text or caption",       11, 16,  0.0,   "Regular"),
-    ("overline",      "SECTION OVERLINE",             11, 16,  1.0,   "SemiBold"),
-    ("code",          "TXN-20240510-4829A",           13, 20,  0.0,   "Regular · Mono"),
+    # (name, sample, font_size, line_height, letter_spacing, weight_name, font_family)
+    ("displayHero",   "The quick brown fox jumps",    34, 40, -1.0,   "Bold",      "Inter"),
+    ("displayLarge",  "The quick brown fox jumps",    28, 34, -0.5,   "Bold",      "Inter"),
+    ("displayMedium", "The quick brown fox jumps",    24, 30, -0.25,  "Bold",      "Inter"),
+    ("displaySmall",  "The quick brown fox jumps",    20, 26, -0.25,  "SemiBold",  "Inter"),
+    ("headlineLarge", "The quick brown fox jumps",    18, 24, -0.15,  "SemiBold",  "Inter"),
+    ("headlineMedium","The quick brown fox",          16, 22,  0.0,   "SemiBold",  "Inter"),
+    ("headlineSmall", "The quick brown fox",          14, 20,  0.0,   "SemiBold",  "Inter"),
+    ("titleLarge",    "The quick brown fox",          16, 22,  0.0,   "Medium",    "Inter"),
+    ("titleMedium",   "The quick brown fox",          14, 20,  0.1,   "Medium",    "Inter"),
+    ("titleSmall",    "The quick brown fox",          13, 18,  0.1,   "Medium",    "Inter"),
+    ("bodyLarge",     "The quick brown fox jumps over the lazy dog",  16, 24, 0.0, "Regular", "Inter"),
+    ("bodyMedium",    "The quick brown fox jumps over the lazy dog",  14, 22, 0.0, "Regular", "Inter"),
+    ("bodySmall",     "The quick brown fox jumps over the lazy dog",  13, 20, 0.0, "Regular", "Inter"),
+    ("labelLarge",    "Button Label",                 14, 20,  0.1,   "Medium",    "Inter"),
+    ("labelMedium",   "Field Label",                  12, 18,  0.25,  "Medium",    "Inter"),
+    ("labelSmall",    "SMALL LABEL",                  11, 16,  0.5,   "Medium",    "Inter"),
+    ("caption",       "Helper text or caption",       11, 16,  0.0,   "Regular",   "Inter"),
+    ("overline",      "SECTION OVERLINE",             11, 16,  1.0,   "SemiBold",  "Inter"),
+    ("code",          "TXN-20240510-4829A",           13, 20,  0.0,   "Regular",   "JetBrains Mono"),
 ]
 
 # ─── Page Drawers ─────────────────────────────────────────────────────────────
@@ -555,11 +555,12 @@ def draw_typography(c):
     # Column headers
     cols = [
         ("STYLE",    ML,       60),
-        ("SAMPLE",   ML + 100, 230),
-        ("SIZE",     ML + 338, 24),
-        ("LH",       ML + 368, 20),
-        ("LS",       ML + 394, 26),
-        ("WEIGHT",   ML + 426, 60),
+        ("FONT",     ML + 74,  50),
+        ("SAMPLE",   ML + 128, 200),
+        ("SIZE",     ML + 336, 24),
+        ("LH",       ML + 362, 20),
+        ("LS",       ML + 386, 26),
+        ("WEIGHT",   ML + 418, 60),
     ]
     c.setFont(FONT_B, 6.5)
     c.setFillColor(hc("#9ca3af"))
@@ -573,10 +574,10 @@ def draw_typography(c):
 
     accent_colors = {
         "Bold": "#ec4899", "SemiBold": "#14b8a6",
-        "Medium": "#f59e0b", "Regular": "#6b7280", "Regular · Mono": "#ef4444",
+        "Medium": "#f59e0b", "Regular": "#6b7280",
     }
 
-    for name, sample, fs, lh, ls, fw_name in TYPOGRAPHY:
+    for name, sample, fs, lh, ls, fw_name, font_family in TYPOGRAPHY:
         row_h = max(lh + 4, 18)
         if y - row_h < MB:
             break
@@ -586,6 +587,12 @@ def draw_typography(c):
         c.setFillColor(hc("#6b7280"))
         c.drawString(ML, y - 5, name)
 
+        # Font family
+        is_mono = font_family != "Inter"
+        c.setFont(FONT, 6.5)
+        c.setFillColor(hc("#ef4444" if is_mono else "#374151"))
+        c.drawString(ML + 74, y - 5, font_family)
+
         # Sample text (capped render size, clipped)
         render_fs = min(fs, 20)
         font = font_map.get(fw_name, FONT)
@@ -593,23 +600,23 @@ def draw_typography(c):
         c.setFillColor(hc("#111827"))
         c.saveState()
         p = c.beginPath()
-        p.rect(ML + 100, y - row_h, 232, row_h + 2)
+        p.rect(ML + 128, y - row_h, 202, row_h + 2)
         c.clipPath(p, stroke=0)
-        c.drawString(ML + 100, y - render_fs + 4, sample)
+        c.drawString(ML + 128, y - render_fs + 4, sample)
         c.restoreState()
 
         # Properties
         c.setFont(FONT, 7.5)
         c.setFillColor(hc("#374151"))
-        c.drawString(ML + 338, y - 5, str(fs))
-        c.drawString(ML + 368, y - 5, str(lh))
-        c.drawString(ML + 394, y - 5, str(ls))
+        c.drawString(ML + 336, y - 5, str(fs))
+        c.drawString(ML + 362, y - 5, str(lh))
+        c.drawString(ML + 386, y - 5, str(ls))
 
         # Weight tag
         wc = accent_colors.get(fw_name, "#6b7280")
         c.setFillColor(hc(wc))
         c.setFont(FONT_B, 6.5)
-        c.drawString(ML + 426, y - 5, fw_name)
+        c.drawString(ML + 418, y - 5, fw_name)
 
         # Row divider
         c.setStrokeColor(hc("#f3f4f6"))
@@ -794,7 +801,175 @@ def draw_dimensions(c):
         bpx_ += 168
 
 
-def draw_footer(c, page_num, total=7):
+def draw_hierarchy(c):
+    y = page_header(c, "Color Hierarchy",
+                    "How color layers stack — background → surface → content, and when to use onColor tokens.",
+                    accent="#ec4899")
+    y -= 4
+
+    lt = THEME["light"]
+    dk = THEME["dark"]
+
+    def get_tok(theme, section, name):
+        for sec_title, _, tokens in theme["sections"]:
+            if sec_title == section:
+                for tname, tval in tokens:
+                    if tname == name:
+                        return tval
+        return "#ff00ff"
+
+    half_w = (CW - 16) / 2
+
+    def draw_scenario(c, x, y, w, title, desc, layers, theme, is_dark):
+        bg = theme["bg_page"]
+        lbl_col = theme["label_col"]
+        border = theme["border_col"]
+
+        c.setFont(FONT_B, 8)
+        c.setFillColor(hc(theme["title_col"]))
+        c.drawString(x, y, title)
+        c.setFont(FONT, 6.5)
+        c.setFillColor(hc(lbl_col))
+        c.drawString(x, y - 11, desc)
+        y -= 20
+
+        total_h = 120
+        c.setFillColor(hc(layers[0][1]))
+        c.setStrokeColor(hc(border))
+        c.setLineWidth(0.5)
+        c.roundRect(x, y - total_h, w, total_h, 6, fill=1, stroke=1)
+
+        c.setFont(FONT, 5.5)
+        c.setFillColor(hc(lbl_col))
+        c.drawString(x + 6, y - 12, layers[0][0])
+
+        if len(layers) >= 2:
+            inset = 14
+            inner_w = w - inset * 2
+            inner_h = total_h - 34
+            inner_y = y - 22
+
+            c.setFillColor(hc(layers[1][1]))
+            c.setStrokeColor(hc(border))
+            c.setLineWidth(0.4)
+            c.roundRect(x + inset, inner_y - inner_h, inner_w, inner_h, 5, fill=1, stroke=1)
+
+            c.setFont(FONT, 5.5)
+            c.setFillColor(hc(lbl_col))
+            c.drawString(x + inset + 6, inner_y - 12, layers[1][0])
+
+            if len(layers) >= 3:
+                txt_label = layers[2][0]
+                txt_col = layers[2][1]
+                c.setFont(FONT_B, 14)
+                c.setFillColor(hc(txt_col))
+                c.drawString(x + inset + 12, inner_y - inner_h + 20, "Aa Text")
+                c.setFont(FONT, 5.5)
+                c.setFillColor(hc(lbl_col))
+                c.drawString(x + inset + 12, inner_y - inner_h + 10, txt_label)
+
+        return y - total_h - 8
+
+    def draw_action_scenario(c, x, y, w, title, desc, bg_hex, btn_hex, text_hex, action_label, label_text, theme, is_dark):
+        lbl_col = theme["label_col"]
+        border = theme["border_col"]
+
+        c.setFont(FONT_B, 8)
+        c.setFillColor(hc(theme["title_col"]))
+        c.drawString(x, y, title)
+        c.setFont(FONT, 6.5)
+        c.setFillColor(hc(lbl_col))
+        c.drawString(x, y - 11, desc)
+        y -= 20
+
+        total_h = 120
+        c.setFillColor(hc(bg_hex))
+        c.setStrokeColor(hc(border))
+        c.setLineWidth(0.5)
+        c.roundRect(x, y - total_h, w, total_h, 6, fill=1, stroke=1)
+
+        c.setFont(FONT, 5.5)
+        c.setFillColor(hc(lbl_col))
+        c.drawString(x + 6, y - 12, "background.page")
+
+        btn_w = w - 40
+        btn_h = 36
+        btn_x = x + 20
+        btn_y = y - 40
+
+        c.setFillColor(hc(btn_hex))
+        c.roundRect(btn_x, btn_y - btn_h, btn_w, btn_h, 10, fill=1, stroke=0)
+
+        c.setFont(FONT_B, 12)
+        c.setFillColor(hc(text_hex))
+        tw = c.stringWidth("Submit", FONT_B, 12)
+        c.drawString(btn_x + (btn_w - tw) / 2, btn_y - btn_h / 2 - 4, "Submit")
+
+        c.setFont(FONT, 5.5)
+        c.setFillColor(hc(lbl_col))
+        c.drawString(btn_x, btn_y - btn_h - 10, f"action: {action_label}")
+        c.drawString(btn_x, btn_y - btn_h - 19, f"text: {label_text}")
+
+        return y - total_h - 8
+
+    for mode_name, theme, is_dark in [("Light Mode", lt, False), ("Dark Mode", dk, True)]:
+        c.setFont(FONT_B, 10)
+        c.setFillColor(hc(theme["accent"]))
+        c.drawString(ML, y, mode_name)
+        c.setStrokeColor(hc(theme["accent"]))
+        c.setLineWidth(1)
+        c.line(ML, y - 3, ML + 60, y - 3)
+        y -= 16
+
+        lx = ML
+        rx = ML + half_w + 16
+
+        bg_page = get_tok(theme, "BACKGROUND", "page")
+        surf_default = get_tok(theme, "SURFACE", "default")
+        cont_primary = get_tok(theme, "CONTENT", "primary")
+        surf_success = get_tok(theme, "SURFACE", "success")
+        cont_success = get_tok(theme, "CONTENT STATUS", "success")
+        act_primary = get_tok(theme, "ACTION", "primary·default")
+        cont_on = get_tok(theme, "CONTENT", "onPrimary")
+
+        y1 = draw_scenario(c, lx, y, half_w,
+                           "Standard Content",
+                           "background → surface → content.primary",
+                           [("background.page", bg_page),
+                            ("surface.default", surf_default),
+                            ("content.primary", cont_primary)],
+                           theme, is_dark)
+
+        y2 = draw_scenario(c, rx, y, half_w,
+                           "Status Surface",
+                           "background → surface.success → content.status",
+                           [("background.page", bg_page),
+                            ("surface.success", surf_success),
+                            ("content.status.success", cont_success)],
+                           theme, is_dark)
+
+        y = min(y1, y2) - 4
+
+        y3 = draw_action_scenario(c, lx, y, half_w,
+                                  "Action Button",
+                                  "action.primary → content.onPrimary",
+                                  bg_page, act_primary, cont_on,
+                                  "action.primary.default", "content.onPrimary",
+                                  theme, is_dark)
+
+        y4 = draw_action_scenario(c, rx, y, half_w,
+                                  "Destructive Button",
+                                  "action.destructive → content.onError",
+                                  bg_page,
+                                  get_tok(theme, "ACTION", "destruct·default"),
+                                  get_tok(theme, "CONTENT", "onError"),
+                                  "action.destructive.default", "content.onError",
+                                  theme, is_dark)
+
+        y = min(y3, y4) - 12
+
+
+def draw_footer(c, page_num, total=8):
     c.setFont(FONT, 7)
     c.setFillColor(hc("#d1d5db"))
     c.drawCentredString(W/2, 9*mm, f"Design System Reference  ·  Page {page_num} of {total}")
@@ -814,6 +989,7 @@ def build():
         (draw_semantic,           "Semantic Tokens"),
         (lambda c: draw_theme_page(c, "light"), "Theme Light"),
         (lambda c: draw_theme_page(c, "dark"),  "Theme Dark"),
+        (draw_hierarchy,          "Color Hierarchy"),
         (draw_typography,         "Typography"),
         (draw_dimensions,         "Dimensions"),
     ]
