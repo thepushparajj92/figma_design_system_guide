@@ -66,30 +66,30 @@ Every leaf token must have this structure:
 
 | Set | Role | Contains |
 |-----|------|----------|
-| `Brand` | Raw palette | `blue`, `gray`, `green`, `red`, `amber`, `teal`, `slate`, `overlay`, `core` — only hex values |
-| `Alias` | Semantic roles | `primary`→blue, `neutral`→gray, `base`→slate, `error`→red, `warning`→amber, `success`→green, `information`→teal, `overlay`, `white`, `black`, `transparent` |
-| `Component/Light` | Light theme | References Alias only — background, surface, content, action, input, border, focus |
-| `Component/Dark` | Dark theme | Same structure as Light, different Alias references |
+| `brand` | Raw palette | `pink`, `blue`, `gray`, `green`, `red`, `amber`, `teal`, `slate`, `overlay`, `core` — only hex values |
+| `alias` | Semantic roles | `primary`→pink, `neutral`→gray, `base`→slate, `error`→red, `warning`→amber, `success`→green, `information`→teal, `overlay` |
+| `component/light` | Light theme | References Alias only — background, surface, content, action, input, border, focus |
+| `component/dark` | Dark theme | Same structure as Light, different Alias references |
 
 ### Dimensions
 
 | Set | Role | Contains |
 |-----|------|----------|
-| `Dimension/Mobile` | Mobile dimensions | spacing, layout, component sizes, radius, border, opacity, elevation |
-| `Dimension/Tablet` | Tablet dimensions | Same groups, tablet-scaled values |
+| `dimension/mobile` | Mobile dimensions | spacing, layout, component sizes, radius, border, opacity, elevation |
+| `dimension/tablet` | Tablet dimensions | Same groups, tablet-scaled values |
 
 ### Typography
 
 | Set | Role | Contains |
 |-----|------|----------|
-| `Typography/Mobile` | Mobile type scale | 19 text styles × (fontSize, lineHeight, letterSpacing, paragraphSpacing) |
-| `Typography/Tablet` | Tablet type scale | Same styles, tablet-scaled values |
+| `typography/mobile` | Mobile type scale | 19 text styles × (fontSize, lineHeight, letterSpacing, paragraphSpacing) |
+| `typography/tablet` | Tablet type scale | Same styles, tablet-scaled values |
 
 ## Token Set Naming Rules
 
-- Use `/` in set names for folder grouping in Token Studio sidebar: `Component/Light`, `Dimension/Mobile`
-- Do NOT use `/Value` suffix — `Brand` not `Brand/Value`
-- Sets that share a prefix group into a folder: `Dimension/Mobile` + `Dimension/Tablet` → "Dimension" folder
+- Use `/` in set names for folder grouping in Token Studio sidebar: `component/light`, `dimension/mobile`
+- Do NOT use `/Value` suffix — `brand` not `brand/Value`
+- Sets that share a prefix group into a folder: `dimension/mobile` + `dimension/tablet` → "dimension" folder
 
 ## Figma Variable Collections (via $themes)
 
@@ -97,9 +97,9 @@ Token sets map to Figma Variable Collections through `$themes`. Each theme group
 
 | Collection | Modes | Enabled sets |
 |------------|-------|-------------|
-| **Component** | Light, Dark | `Component/Light` or `Component/Dark` (Brand + Alias as source) |
-| **Dimension** | Mobile, Tablet | `Dimension/Mobile` or `Dimension/Tablet` |
-| **Typography** | Mobile, Tablet | `Typography/Mobile` or `Typography/Tablet` |
+| **component** | Light, Dark | `component/light` or `component/dark` (Brand + Alias as source) |
+| **dimension** | Mobile, Tablet | `dimension/mobile` or `dimension/tablet` |
+| **typography** | Mobile, Tablet | `typography/mobile` or `typography/tablet` |
 
 ### Theme configuration
 
@@ -126,7 +126,7 @@ Token sets map to Figma Variable Collections through `$themes`. Each theme group
 
 ### Non-responsive values
 
-Tokens that don't change between modes (spacing base scale, radius, border widths, opacity, elevation) are duplicated into BOTH mode sets (e.g., `Dimension/Mobile` and `Dimension/Tablet`). This ensures one Figma collection with a mode switcher instead of separate orphan collections.
+Tokens that don't change between modes (spacing base scale, radius, border widths, opacity, elevation) are duplicated into BOTH mode sets (e.g., `dimension/mobile` and `dimension/tablet`). This ensures one Figma collection with a mode switcher instead of separate orphan collections.
 
 ## Importing to Figma Variables
 
@@ -137,17 +137,18 @@ To import this into Figma variables:
 3. Export `dimension/mobile` as zip and keep a back up and then delete it.
 4. Select `dimension/tablet`. Add a new dimension mode and instead of adding the tokens to the new mode, import the `dimension/mobile` json which we took backup.
 
-> Do the same for `components/mobile` and `components/tablet` too.
+> Do the same for `component/mobile` and `component/tablet` too.
 
 ## Color Architecture
 
 ### Brand layer
 
-Raw color palette. 8 families + core tokens.
+Raw color palette. 9 families + core tokens.
 
 | Family | Shades | Purpose |
 |--------|--------|---------|
-| `blue` | 50–1200 | Primary / brand color |
+| `pink` | 50–1200 | Primary / brand color |
+| `blue` | 50–1200 | Brand palette color |
 | `gray` | 50–1200 | Pure neutral for text, icons, borders |
 | `slate` | 50–950 | Blue-tinted neutral for backgrounds, dark surfaces |
 | `green` | 50–1300 | Success states |
@@ -165,17 +166,17 @@ Maps semantic role names to Brand references. Two naming patterns:
 
 **Shade pass-through** — full palette access:
 ```
-primary.500 → {blue.500}
+primary.500 → {pink.500}
 neutral.900 → {gray.900}
 base.800    → {slate.800}
 ```
 
 **Semantic shortcuts** — named intent:
 ```
-primary.subtle   → {blue.50}     (tint background)
-primary.muted    → {blue.200}    (soft background, badge/chip fill)
-primary.default  → {blue.500}    (main color)
-primary.emphasis → {blue.700}    (pressed / darker)
+primary.subtle   → {pink.50}     (tint background)
+primary.muted    → {pink.200}    (soft background, badge/chip fill)
+primary.default  → {pink.500}    (main color)
+primary.emphasis → {pink.700}    (pressed / darker)
 primary.on       → {core.white}  (text ON a primary-colored surface)
 ```
 
@@ -207,19 +208,19 @@ This system is designed for a mobile Flutter app:
 
 ### Adding a new color
 
-1. Add the raw hex to `Brand` under the appropriate family
-2. Add an alias reference in `Alias` under the appropriate role: `{family.shade}`
-3. Reference the alias in `Component/Light` and/or `Component/Dark`: `{role.shade}`
+1. Add the raw hex to `brand` under the appropriate family
+2. Add an alias reference in `alias` under the appropriate role: `{family.shade}`
+3. Reference the alias in `component/light` and/or `component/dark`: `{role.shade}`
 4. Never skip a layer
 
 ### Adding a new component dimension
 
-1. Add the value to BOTH `Dimension/Mobile` and `Dimension/Tablet` under the component group
+1. Add the value to BOTH `dimension/mobile` and `dimension/tablet` under the component group
 2. Use `"type": "sizing"` for component sizes, `"type": "spacing"` for gaps/padding
 
 ### Adding a new text style
 
-1. Add the style group to BOTH `Typography/Mobile` and `Typography/Tablet`
+1. Add the style group to BOTH `typography/mobile` and `typography/tablet`
 2. Each style has: `fontSize` (fontSizes), `lineHeight` (lineHeights), `letterSpacing` (letterSpacing), `paragraphSpacing` (paragraphSpacing)
 
 ## Validation Checklist
@@ -235,4 +236,3 @@ Before importing into Token Studio:
 - [ ] `$themes` groups define proper `source` / `enabled` mapping
 - [ ] Non-responsive values are duplicated in both mode sets
 - [ ] `$metadata.tokenSetOrder` lists all sets
-# figma_design_system_guide
