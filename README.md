@@ -52,14 +52,6 @@ Every leaf token must have this structure:
 
 `tokens_to_figma.json` — import this one file into Token Studio. Top-level keys are token set names.
 
-### Source files (for reference / code generation)
-
-| File | Purpose |
-|------|---------|
-| `theme_colors.json` | Structured color tokens (primitive → semantic → theme) |
-| `theme_dimension.json` | Spacing, sizing, radius, border, opacity, elevation, animation |
-| `theme_typography.json` | Font families, weights, text style scale with mobile/tablet |
-
 ## Token Sets
 
 ### Colors
